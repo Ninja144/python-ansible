@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include acme.install_python"
+    - name: "Include install_python"
       include_role:
-        name: "acme.install_python"
+        name: "install_python"

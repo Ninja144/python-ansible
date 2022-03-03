@@ -1,2 +1,37 @@
 ---
 # tasks file for install_python
+
+- name: Install Python in CentOS 7 or 8
+  block:
+    - name: Install dependency packages for Python
+      yum:
+        name:
+          - gcc
+          - openssl-devel
+          - bzip2-devel
+          - libffi-devel
+          - zlib-devel
+        state: latest
+
+    - name: Download python with python.org
+      get_url:
+        url: "{{ url_python }}"
+        dest: "{{ path_python_archive }}"
+
+    - name: test
+      command: ls -l /opt/
+
+    - name: Extract python archive 
+      unarchive:
+        src: "{{ path_python_archive }}"
+        dest: /opt/Python-"{{ python_version }}"
+
+    - name: Configure python
+      command: "{{ item }}"
+      args:
+        chdir: "{{ py_data.sources }}"
+      with_items:
+        - "./configure --enable-optimizations"
+        - make
+        - make install
+      when: should_install and not already_installed.stat.exists
