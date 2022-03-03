@@ -1,6 +1,7 @@
 *.log
 .cache
 *.bak
+share/
 
 # Python environment
 bin/
