@@ -18,13 +18,13 @@
         url: "{{ url_python }}"
         dest: "{{ path_python_archive }}"
 
-    - name: test
-      command: ls -l /opt/
-
     - name: Extract python archive 
       unarchive:
         src: "{{ path_python_archive }}"
-        dest: /opt/Python-"{{ python_version }}"
+        dest: /opt/
+      # dest: "{{ path_python_directory }}"
+      #    remote_src: yes
+
 
     - name: Configure python
       command: "{{ item }}"
